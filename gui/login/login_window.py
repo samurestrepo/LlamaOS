@@ -7,6 +7,8 @@ from PyQt6.QtCore import Qt
 from config.settings import APP_NAME
 from PyQt6.QtGui import QPixmap
 from config.settings import APP_NAME, LOGO_PATH
+from services.auth_service import AuthService
+
 
 
 
@@ -16,6 +18,8 @@ class LoginWindow(QWidget):
         super().__init__()
         self.setWindowTitle(APP_NAME)
         self.setFixedSize(500, 600)
+
+        self.auth_service = AuthService()
 
         self.init_ui()
 
@@ -101,8 +105,8 @@ class LoginWindow(QWidget):
         user = self.username.text()
         password = self.password.text()
 
-        if user == "admin" and password == "1234":
-            QMessageBox.information(self, "Acceso", "Bienvenido a llamaOS")
+        if self.auth_service.login(user, password):
+            QMessageBox.information(self, "Acceso", f"Bienvenido {user} a llamaOS")
         else:
             QMessageBox.warning(self, "Error", "Credenciales incorrectas")
 
