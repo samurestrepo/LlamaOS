@@ -24,7 +24,7 @@ class DesktopWindow(QWidget):
         # =========================
         # Área central (escritorio)
         # =========================
-        desktop_area = QLabel()
+        desktop_area = QLabel(f"Bienvenido {self.username}")
         desktop_area.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         desktop_area.setStyleSheet("""
