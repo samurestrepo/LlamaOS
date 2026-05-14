@@ -7,6 +7,8 @@ from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QPixmap, QIcon, QPainter, QBrush
 
 from config.settings import APP_NAME
+#APPS
+from apps.calculator import CalculatorApp
 
 
 class DesktopWindow(QWidget):
@@ -20,7 +22,7 @@ class DesktopWindow(QWidget):
         self.showMaximized()
 
         # Load wallpaper
-        self.set_wallpaper("assets/wallpapers/default.jpg")
+        self.set_wallpaper("assets/wallpapers/dark.jpg")
 
         self.init_ui()
 
@@ -364,8 +366,8 @@ class DesktopWindow(QWidget):
     # =========================
 
     def on_open_calculator(self):
-        """TODO: Launch Calculator app."""
-        print("[llamaOS] Opening Calculator...")
+        self.calculator_window = CalculatorApp()
+        self.calculator_window.show()
 
     def on_open_tasks(self):
         """TODO: Launch Task Manager app."""
