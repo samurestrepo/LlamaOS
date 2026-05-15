@@ -9,13 +9,15 @@ from PyQt6.QtGui import QPixmap, QIcon, QPainter, QBrush
 from config.settings import APP_NAME
 #APPS
 from apps.calculator import CalculatorApp
+from apps.file_explorer import FileExplorerApp
 
 
 class DesktopWindow(QWidget):
-    def __init__(self, username):
+    def __init__(self, username, role):
         super().__init__()
 
         self.username = username
+        self.role = role
         self.bg_pixmap = None
 
         self.setWindowTitle(APP_NAME)
@@ -374,8 +376,11 @@ class DesktopWindow(QWidget):
         print("[llamaOS] Opening Task Manager...")
 
     def on_open_explorer(self):
-        """TODO: Launch File Explorer app."""
-        print("[llamaOS] Opening File Explorer...")
+        self.file_explorer = FileExplorerApp(
+            self.username,
+            self.role
+        )
+        self.file_explorer.show()
 
     def on_open_camera(self):
         """TODO: Launch Camera app."""

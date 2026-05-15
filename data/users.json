@@ -2,15 +2,18 @@
   "users": [
     {
       "username": "admin",
-      "password": "1234"
+      "password": "1234",
+      "role":"admin"
     },
     {
       "username": "samuel",
-      "password": "abcd"
+      "password": "abcd",
+      "role":"user"
     },
     {
       "username": "guest",
-      "password": "guest"
+      "password": "guest",
+      "role":"user"
     }
   ]
 }

@@ -105,13 +105,24 @@ class LoginWindow(QWidget):
     def login(self):
         user = self.username.text()
         password = self.password.text()
+        user_data = self.auth_service.login(user, password)
 
-        if self.auth_service.login(user, password):
-            self.desktop = DesktopWindow(user)
+        if user_data:
+            username = user_data["username"]
+            role = user_data["role"]
+
+            self.desktop = DesktopWindow(
+                username,
+                role
+            )
             self.desktop.show()
             self.close()
         else:
-            QMessageBox.warning(self, "Error", "Credenciales incorrectas")
+            QMessageBox.warning(
+                self,
+                "Error",
+                "Credenciales incorrectas"
+            )
 
     def input_style(self):
         return """
