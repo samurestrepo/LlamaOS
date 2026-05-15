@@ -5,11 +5,13 @@ from PyQt6.QtWidgets import (
 )
 from PyQt6.QtCore import Qt, QSize
 from PyQt6.QtGui import QPixmap, QIcon, QPainter, QBrush
-
 from config.settings import APP_NAME
 #APPS
 from apps.calculator import CalculatorApp
 from apps.file_explorer import FileExplorerApp
+from apps.task_manager import TaskManagerApp
+#process manager
+from core.process_manager import ProcessManager
 
 
 class DesktopWindow(QWidget):
@@ -19,6 +21,7 @@ class DesktopWindow(QWidget):
         self.username = username
         self.role = role
         self.bg_pixmap = None
+        self.process_manager = ProcessManager()
 
         self.setWindowTitle(APP_NAME)
         self.showMaximized()
@@ -364,16 +367,24 @@ class DesktopWindow(QWidget):
         return frame
 
     # =========================
-    # APP LISTENERS
+    # APP LAUNCHERS
     # =========================
 
     def on_open_calculator(self):
         self.calculator_window = CalculatorApp()
         self.calculator_window.show()
+        self.process_manager.register_process(
+        "Calculator",
+        self.calculator_window
+    )
 
     def on_open_tasks(self):
-        """TODO: Launch Task Manager app."""
-        print("[llamaOS] Opening Task Manager...")
+        self.task_manager = TaskManagerApp()
+        self.task_manager.show()
+        self.process_manager.register_process(
+            "Task Manager",
+            self.task_manager
+        )
 
     def on_open_explorer(self):
         self.file_explorer = FileExplorerApp(
@@ -381,6 +392,10 @@ class DesktopWindow(QWidget):
             self.role
         )
         self.file_explorer.show()
+        self.process_manager.register_process(
+        "File Explorer",
+        self.file_explorer
+    )
 
     def on_open_camera(self):
         """TODO: Launch Camera app."""

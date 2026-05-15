@@ -1,0 +1,1 @@
+from apps.task_manager.task_manager_app import TaskManagerApp
